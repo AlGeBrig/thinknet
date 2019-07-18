@@ -59,7 +59,7 @@ class Train
   end
 end
 
-protected  # Вынесено в protected, так как не являются клиентскими методами
+  private # Вынесено в protected, так как не являются клиентскими методами
 
 def next_station
   @route.all_stations[@station + 1]
