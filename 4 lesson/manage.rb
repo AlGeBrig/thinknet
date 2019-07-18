@@ -65,7 +65,7 @@ end
 
 def create_train
   puts 'Введите номер поезда в формате ХХХХ'
-  number = gets.chomp.to_i
+  number = gets.chomp
 
   puts 'Введите тип создаваемого поезда
   1. Грузовой
@@ -73,11 +73,12 @@ def create_train
 
   option = gets.strip
 
-  if option == '1'
+  case option 
+  when '1'
     train = PassengerTrain.new(number)
     @trains << train
     puts @trains
-  elsif option == '2'
+  when '2'
     train = CargoTrain.new(number)
     @trains << train
     puts @trains
@@ -87,26 +88,26 @@ def create_train
 end
 
 def list_stations
-  @stations.each.with_index do |_station, index|
-    puts "#{index + 1}. #{@stations[index]} - #{@stations[index].name}"
+  @stations.each.with_index(1) do |_station, index|
+    puts "#{index}. #{@stations[index]} - #{@stations[index].name}"
   end
 end
 
 def list_trains
-  @trains.each.with_index do |_train, index|
-    puts "#{index + 1}. Поезд #{@trains[index].number} - тип #{@trains[index].type} "
+  @trains.each.with_index(1) do |_train, index|
+    puts "#{index}. Поезд #{@trains[index].number} - тип #{@trains[index].type} "
   end
 end
 
 def list_routes
-  @routes.each.with_index do |_route, index|
-    puts "#{index + 1}. Маршрут: #{@routes[index]} - #{@routes[index].all_stations}"
+  @routes.each.with_index(1) do |_route, index|
+    puts "#{index}. Маршрут: #{@routes[index]} - #{@routes[index].all_stations}"
   end
 end
 
 def list_wagons
-  @wagons.each.with_index do |wagon, index|
-    puts "#{index + 1}. Вагон: #{wagon.type}"
+  @wagons.each.with_index(1) do |wagon, index|
+    puts "#{index}. Вагон: #{wagon.type}"
   end
 end
 
@@ -134,24 +135,25 @@ def edit_route
   1. Добавить станцию
   2. Удалить станцию'
 
-  option = gets.chomp.to_i
+  option = gets.chomp
 
   puts 'Введите порядковый номер маршрута'
   list_routes
-  route_number = gets.chomp.to_i
+  route_number = gets.chomp
 
   choose_route = @routes[route_number - 1]
 
   puts 'Введите порядковый номер станции'
   list_stations
-  station_number = gets.chomp.to_i
+  station_number = gets.chomp
 
   choose_station = @stations[station_number - 1]
 
-  if option == '1'
+  case option
+  when '1'
     choose_route.add_station(choose_station)
     p choose_route
-  elsif option == '2'
+  when '2'
     choose_route.delete_station(choose_station)
     p choose_route
   else
@@ -162,11 +164,11 @@ end
 def train_get_route
   puts 'Введите порядковый номер маршрута'
   list_routes
-  route_number = gets.chomp.to_i
+  route_number = gets.chomp
 
   puts 'Введите порядковый номер поезда'
   list_trains
-  train_number = gets.chomp.to_i
+  train_number = gets.chomp
 
   choose_route = @routes[route_number - 1]
   choose_train = @trains[train_number - 1]
@@ -180,11 +182,12 @@ def create_wagon
 
   option = gets.strip
 
-  if option == '1'
+case option
+when '1'
     wagon = PassengerWagon.new
     @wagons << wagon
     p @wagons
-  elsif option == '2'
+when '2'
     wagon = CargoWagon.new
     @wagons << wagon
     p @wagons
@@ -197,23 +200,24 @@ def manage_wagons
   puts 'Выберите действие с вагоном:
   1.Присоединить вагон
   2.Отцепить вагон'
-  option = gets.chomp.to_i
+  option = gets.chomp
 
   print 'Выберите вагон'
   list_wagons
-  wagon_number = gets.chomp.to_i
+  wagon_number = gets.chomp
 
   print 'Выберите поезд'
   list_trains
-  train_number = gets.chomp.to_i
+  train_number = gets.chomp
 
   choose_wagon = @wagons[wagon_number - 1]
   choose_train = @trains[train_number - 1]
 
-  if option == '1'
+  case option 
+  when '1'
     choose_train.connect_wagon(choose_wagon)
     puts choose_train.all_wagons
-  elsif option == '2'
+  when option == '2'
     choose_train.delete_wagon(choose_wagon)
     puts choose_train.all_wagons
   else
@@ -225,7 +229,7 @@ def move_train
   puts 'Движение поезда:
   1.Перемещение поезда вперед
   2.Перемещение поезда назад'
-  option = gets.chomp.to_i
+  option = gets.chomp
 
   list_trains
   puts 'Выберите поезд из списка выше'
@@ -234,9 +238,10 @@ def move_train
   choose_train = @trains[train_number - 1]
   puts choose_train.current_station
 
-  if option == '1'
+  case option
+  when '1'
     choose_train.forward
-  elsif option == '2'
+  when  option == '2'
     choose_train.back
   else
     puts 'неверный выбор'
