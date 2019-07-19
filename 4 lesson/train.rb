@@ -30,6 +30,12 @@ class Train
   #  puts "Number of wagons = #{@wagons}"
   #  end
 
+  def connect_wagon(wagon)
+    if @current_speed == 0 && (wagon.type == :cargo || wagon.type == :passenger)
+      @wagons << wagon unless @wagons.include?(wagon)
+    end
+  end
+
   def delete_wagon(wagon)
     if @current_speed == 0 && @all_wagons > 0
       @all_wagons.delete(wagon)
@@ -51,15 +57,17 @@ class Train
   def forward
     return if next_station.nil?
     @station += 1
+    get_train(self)
   end
 
   def back
     return if prev_station.nil?
     @station -= 1
+    train_out(self)
   end
-end
 
-  private # Вынесено в protected, так как не являются клиентскими методами
+
+  private 
 
 def next_station
   @route.all_stations[@station + 1]
@@ -67,4 +75,6 @@ end
 
 def prev_station
   @route.all_stations[@station - 1] if @station != 0
+end
+
 end

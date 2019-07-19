@@ -8,13 +8,7 @@ super
 @type = :passenger 
 end
 
-def connect_wagon(wagon)
-    if @current_speed == 0 && wagon.type == :passenger
-        unless @wagons.include?(wagon)
-            @wagons << wagon
-        end
-    end
-end
+protected
 
 def join_wagon?(wagon)
     wagon.is_a?(PassengerWagon)

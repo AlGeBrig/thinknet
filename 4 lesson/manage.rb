@@ -4,8 +4,8 @@ attr_reader :wagons, :trains, :stations, :routes
 
 def initialize
   @wagons = []
-  @trains = []
-  @stations = []
+  @trains = ['11','22']
+  @stations = ['A','B']
   @routes = []
 end
 
@@ -88,19 +88,19 @@ def create_train
 end
 
 def list_stations
-  @stations.each.with_index(1) do |_station, index|
+  @stations.each.with_index(1) do |station, index|
     puts "#{index}. #{@stations[index]} - #{@stations[index].name}"
   end
 end
 
 def list_trains
-  @trains.each.with_index(1) do |_train, index|
+  @trains.each.with_index(1) do |train, index|
     puts "#{index}. Поезд #{@trains[index].number} - тип #{@trains[index].type} "
   end
 end
 
 def list_routes
-  @routes.each.with_index(1) do |_route, index|
+  @routes.each.with_index(1) do |route, index|
     puts "#{index}. Маршрут: #{@routes[index]} - #{@routes[index].all_stations}"
   end
 end
@@ -139,13 +139,13 @@ def edit_route
 
   puts 'Введите порядковый номер маршрута'
   list_routes
-  route_number = gets.chomp
+  route_number = gets.chomp.to_i
 
   choose_route = @routes[route_number - 1]
 
   puts 'Введите порядковый номер станции'
   list_stations
-  station_number = gets.chomp
+  station_number = gets.chomp.to_i
 
   choose_station = @stations[station_number - 1]
 
