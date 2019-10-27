@@ -1,0 +1,21 @@
+Исправил основные моменты, которые показал рубокоп, остались только ошибки по длине методов и строк в некоторых из них 
+плюс непонятны некоторые комментарии:
+
+manage.rb:335:17: W: Lint/UselessAssignment: Useless assignment to variable - index.
+        puts "#{index += 1}. Вагон:#{wagon.type}"
+Почему рубокоп считает это бесполезным?
+
+route.rb:25:81: C: Metrics/LineLength: Line is too long. [100/80]
+    @all_stations.delete(station) if (@all_stations[0] != station) && (@all_stations[-1] != station)
+Больше 80 символов, но это же допустимо? Потому что так на мой взгляд все таки читается намного лучше 
+если не разбивать на две строки?
+
+manufacturer.rb:10:5: C: Style/GuardClause: Use a guard clause instead of wrapping the code inside a conditional expression.
+    if @company.length <= 3
+Не стал делать с guard clause потому что дальше используется raise для вывода ошибки.
+
+manage.rb:327:3: C: Metrics/AbcSize: Assignment Branch Condition size for take_volume is too high. [25.98/15]
+  def take_volume ...
+Что ему не нравится - слишком много строк на один метод?  
+
+ 
