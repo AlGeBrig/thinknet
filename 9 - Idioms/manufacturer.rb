@@ -1,3 +1,4 @@
+# Module Manufacturer
 module Manufacturer
   attr_accessor :company
   def name_company
@@ -6,6 +7,8 @@ module Manufacturer
   end
 
   def validate!
-    raise 'Название компании не может содержать меньше 3 символов ' if @company.length <= 3
+    if @company.length <= 3
+      raise 'Название компании не может содержать меньше 3 символов'
+    end
   end
 end

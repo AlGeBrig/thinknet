@@ -1,11 +1,12 @@
 require_relative 'instance_counter'
 require_relative 'validation'
+# Station class
 class Station
   include InstanceCounter
   include Validation
   attr_reader :name, :trains_on_station
 
-  @@all_stations = []
+  Station.all_stations = []
 
   def initialize(name)
     @name = name
@@ -16,9 +17,9 @@ class Station
   end
 
   def each_train
-    @trains_on_station.each {|train| yield(train)}
+    @trains_on_station.each { |train| yield(train) }
   end
-  
+
   def get_train(train)
     @trains_on_station << train
   end
@@ -35,9 +36,7 @@ class Station
     p @@all_stations
   end
 
-
-
   def validate!
-    raise 'Название станции не может быть короче 3 символов' if @name.length <= 3
+    raise 'Название станции должно быть короче 3 символов' if @name.length <= 3
   end
 end

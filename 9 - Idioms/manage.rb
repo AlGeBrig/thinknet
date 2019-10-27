@@ -1,3 +1,4 @@
+# Manage Menu
 class Manage
   attr_reader :wagons, :trains, :stations, :routes
 
@@ -74,7 +75,8 @@ class Manage
   end
 
   def create_train
-    puts 'Введите номер поезда в формате три буквы или цифры, необязательный дефис, затем две буквы или цифры'
+    puts 'Введите номер поезда в формате три буквы или цифры,
+    необязательный дефис, затем две буквы или цифры'
     number = gets.chomp
 
     puts 'Введите тип создаваемого поезда
@@ -96,7 +98,7 @@ class Manage
       puts "Создан грузовой поезд c номером: #{train.number}"
     else
       puts 'Поезд не создан'
-   end
+    end
   rescue RuntimeError => e
     puts e.message
     retry
@@ -138,11 +140,13 @@ class Manage
     choose_last_station = @stations[last_station - 1]
 
     if first_station == last_station
-      puts 'Начальная и конечная станция не могут иметь один и тот же порядковый номер'
+      puts 'Начальная и конечная станция не могут иметь
+      один и тот же порядковый номер'
     else @routes << Route.new(choose_first_station, choose_last_station)
     end
 
-    puts "Начальная станция маршрута: #{choose_first_station}. Конечная станция маршрута: #{choose_last_station}"
+    puts "Начальная станция маршрута: #{choose_first_station}.
+    Конечная станция маршрута: #{choose_last_station}"
   rescue RuntimeError => e
     puts e.message
   end
@@ -175,7 +179,7 @@ class Manage
       p choose_route
     else
       p 'Неверный ввод'
-     end
+    end
   rescue RuntimeError => e
     puts e.message
   end
@@ -208,13 +212,13 @@ class Manage
 
     case option
     when '1'
-      puts "Введите количество пассажирских мест"
+      puts 'Введите количество пассажирских мест'
       seats = gets.chomp.to_i
       wagon = PassengerWagon.new(number, seats)
       @wagons << wagon
       p @wagons
     when '2'
-      puts "Введите общий объем грузового вагона"
+      puts 'Введите общий объем грузового вагона'
       capacity = gets.chomp.to_i
       wagon = CargoWagon.new(number, capacity)
       @wagons << wagon
@@ -300,46 +304,46 @@ class Manage
 
   def take_seat
     puts list_trains
-    puts  "Введите номер поезда"
+    puts 'Введите номер поезда'
     train_number = gets.chomp
     choose_train = Train.find(train_number)
-      if choose_train.type == :passenger
-        puts "Введите порядковый номер пассажирского вагона"
-        choose_train.all_wagons.each_with_index do |wagon, index|
-          puts "#{index += 1}. Вагон:#{wagon.type}"
-        end
-      
-        answer = gets.to_i
-        choose_wagon = choose_train.all_wagons[answer - 1]
-        
-        choose_wagon.add_content(1)
-        puts "Место в пассажирском вагоне занято. Осталось свободных мест: #{choose_wagon.free_capacity}"
-      else
-        puts "Нельзя занять место в непассажирском вагоне"
+    if choose_train.type == :passenger
+      puts 'Введите порядковый номер пассажирского вагона'
+      choose_train.all_wagons.each_with_index do |wagon, index|
+        puts "#{index += 1}. Вагон:#{wagon.type}"
       end
+
+      answer = gets.to_i
+      choose_wagon = choose_train.all_wagons[answer - 1]
+
+      choose_wagon.add_content(1)
+      puts "Место в пассажирском вагоне занято.
+      Осталось свободных мест: #{choose_wagon.free_capacity}"
+    else
+      puts 'Нельзя занять место в непассажирском вагоне'
+    end
   end
 
   def take_volume
     puts list_trains
-    puts  "Введите номер поезда"
+    puts 'Введите номер поезда'
     train_number = gets.chomp
     choose_train = Train.find(train_number)
-      if choose_train.type == :cargo 
-        puts "Введите порядковый номер грузового вагона"
-        choose_train.all_wagons.each_with_index do |wagon, index|
-          puts "#{index += 1}. Вагон:#{wagon.type}"
-        end
-        answer = gets.to_i
-        choose_wagon = choose_train.all_wagons[answer - 1]
+    if choose_train.type == :cargo
+      puts 'Введите порядковый номер грузового вагона'
+      choose_train.all_wagons.each_with_index do |wagon, index|
+        puts "#{index += 1}. Вагон:#{wagon.type}"
+      end
+      answer = gets.to_i
+      choose_wagon = choose_train.all_wagons[answer - 1]
 
-        puts "Введите количество добавляемого объема"
-        content = gets.to_i
+      puts 'Введите количество добавляемого объема'
+      content = gets.to_i
 
-        choose_wagon.add_content(content)
-        puts "Количество свободного объема: #{choose_wagon.free_capacity}"
-      else 
-        puts "Нельзя занять объем в негрузовом вагоне"
-      end        
+      choose_wagon.add_content(content)
+      puts "Количество свободного объема: #{choose_wagon.free_capacity}"
+    else
+      puts 'Нельзя занять объем в негрузовом вагоне'
+    end
   end
-
 end

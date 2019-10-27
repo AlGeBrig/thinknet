@@ -1,5 +1,5 @@
 require_relative 'train'
-
+# Passenger Train
 class PassengerTrain < Train
   attr_reader :type
 
@@ -7,8 +7,6 @@ class PassengerTrain < Train
     super
     @type = :passenger
   end
-
-  
 
   protected
 
