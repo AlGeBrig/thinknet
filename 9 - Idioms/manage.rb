@@ -310,7 +310,7 @@ class Manage
     if choose_train.type == :passenger
       puts 'Введите порядковый номер пассажирского вагона'
       choose_train.all_wagons.each_with_index do |wagon, index|
-        puts "#{index += 1}. Вагон:#{wagon.type}"
+        puts "#{index + 1}. Вагон:#{wagon.type}"
       end
 
       answer = gets.to_i
@@ -332,7 +332,7 @@ class Manage
     if choose_train.type == :cargo
       puts 'Введите порядковый номер грузового вагона'
       choose_train.all_wagons.each_with_index do |wagon, index|
-        puts "#{index += 1}. Вагон:#{wagon.type}"
+        puts "#{index + 1}. Вагон:#{wagon.type}"
       end
       answer = gets.to_i
       choose_wagon = choose_train.all_wagons[answer - 1]

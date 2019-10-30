@@ -7,8 +7,6 @@ module Manufacturer
   end
 
   def validate!
-    if @company.length <= 3
-      raise 'Название компании не может содержать меньше 3 символов'
-    end
+    raise 'Название компании не может содержать меньше 3 символов' if @company.length <= 3
   end
 end
