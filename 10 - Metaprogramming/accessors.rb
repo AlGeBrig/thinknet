@@ -33,16 +33,11 @@ module Accessors
     end
   end
 
+  # Module InstanceMethods
   module InstanceMethods
     def "#{@method_name}_history"
       @var_name_history_values
     end
   end
-
+  
 end
-
-
-
-
-
-    
