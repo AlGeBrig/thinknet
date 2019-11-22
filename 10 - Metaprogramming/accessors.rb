@@ -20,8 +20,7 @@ module Accessors
         @var_name_history_values << value
       end
     end
-  
-   
+     
     def strong_attr_accessor(attr, attr_class)
         attr_name = "@#{attr}".to_sym
         define_method(attr) {instance_variable_get(attr) }
