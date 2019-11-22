@@ -6,6 +6,7 @@ module Validation
     base.validations = []
   end
 
+  # ClassMethods Module
   module ClassMethods
     attr_accessor :validations
 
@@ -15,6 +16,7 @@ module Validation
     end
   end
 
+  # InstanceMethods Module
   module InstanceMethods
     def validate!
       self.class.validations.each do |valid|
