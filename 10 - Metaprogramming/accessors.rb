@@ -2,7 +2,6 @@
 module Accessors
   def self.included(base)
         base.extend ClassMethods
-        base.send :include, InstanceMethods
   end
 
   # Module ClassMethods
@@ -17,8 +16,11 @@ module Accessors
         define_method(name) {instance_variable_get(var_name) }
         define_method("#{name}=".to_sym) do |value|
         instance_variable_set(var_name, value)
-        @var_name_history_values << value
+        if @var_name_history_values != nil
+          @var_name_history_values << value
+        end
       end
+    end
     end
      
     def strong_attr_accessor(attr, attr_class)
@@ -32,11 +34,5 @@ module Accessors
     end
   end
 
-  # Module InstanceMethods
-  module InstanceMethods
-    def "#{@method_name}_history"
-      @var_name_history_values
-    end
-  end
   
 end
