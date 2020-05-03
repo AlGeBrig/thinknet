@@ -1,12 +1,21 @@
 require_relative './manufacturer.rb'
 require_relative './instance_counter.rb'
 require_relative './validation.rb'
+require_relative './accessors.rb'
 # Train General
 class Train
   include Manufacturer
   include InstanceCounter
   include Validation
+
+  NUMBER_FORMAT = /^[a-z0-9]{3}-*[a-z0-9]{2}$/i
+
   attr_reader :number, :current_speed, :all_wagons
+  attr_accessor :number
+
+  validate :number, :presence
+  validate :number, :format, NUMBER_FORMAT
+
 
   Train.all_trains = {}
   def initialize(number)
@@ -87,11 +96,13 @@ class Train
     @route.all_stations[@station_number - 1] if @station_number != 0
   end
 
-  def validate!
-    if @number !~ /^[a-z0-9]{3}-*[a-z0-9]{2}$/i
+=begin 
+def validate!
+    if 
       raise 'Ошибка: Формат номера поезда: три буквы или цифры в любом порядке,
       необязательный дефис, 2 буквы или цифры
       после дефиса'
     end
   end
+=end 
 end

@@ -8,6 +8,9 @@ class Route
   include Validation
   attr_reader :first_station, :last_station, :all_stations
 
+  validate :first_station, :type, Station 
+  validate :last_station, :type, Station
+
   def initialize(first_station, last_station)
     @all_stations = [first_station, last_station]
     @first_station = first_station

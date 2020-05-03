@@ -1,16 +1,26 @@
 require_relative 'instance_counter'
 require_relative 'validation'
+require_relative 'accessors'
 # Station class
 class Station
   include InstanceCounter
   include Validation
+  include Accessors
+
+  NAME_FORMAT = /^[a_zA-Z]{7}[0-9]$/
+
   attr_reader :name, :trains_on_station
+  attr_accessor :name
+
+  attr_accessor_with_history :trains_on_station
+  strong_attr_accessor :trains_on_station, String
 
   Station.all_stations = []
 
   def initialize(name)
+    valid_presence(name)
     @name = name
-    validate!
+    valid_format(name, NAME_FORMAT )
     @trains_on_station = []
     @@all_stations << self
     register_instance
